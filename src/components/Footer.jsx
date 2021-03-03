@@ -19,7 +19,7 @@ const Footer = () => {
     <FooterWrapper>
       created by{" "}
       <a
-        href="#"
+        href="https://github.com/loot01/react-todo-app"
         style={{ fontWeight: 700, textDecoration: "none", color: "#a9a9a9" }}
       >
         suleif
