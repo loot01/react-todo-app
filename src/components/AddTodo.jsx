@@ -51,6 +51,7 @@ const AddTodo = ({ todos, setTodos }) => {
       onSubmit={(e) => {
         e.preventDefault();
         setTodos([...todos, todo]);
+        localStorage.setItem("todos", JSON.stringify([...todos, todo]));
         e.target.reset();
         setNewTodo("");
       }}

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { uid } from "uid";
 import TodoNav from "./components/TodoNav";
@@ -42,6 +42,7 @@ const DeleteAllWrapper = styled.div`
 const removeAllCompletedTodos = (todos, updateTodos) => {
   const newTodos = todos.filter((todo) => todo.completed !== true);
   updateTodos(newTodos);
+  localStorage.setItem("todos", JSON.stringify(newTodos));
 };
 
 const checkComplete = (todos) => {
@@ -61,6 +62,16 @@ const App = () => {
     },
   ]);
 
+  useEffect(() => {
+    const localTodos = JSON.parse(localStorage.getItem("todos"));
+    if (localTodos.length === 0 && todos.length >= 1) {
+      localStorage.setItem("todos", JSON.stringify(todos));
+    } else {
+      setTodos(localTodos);
+      console.log(localTodos);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <Router>
       <AppHeader>#todo</AppHeader>

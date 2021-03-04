@@ -30,15 +30,18 @@ const completeTodo = (todoToUpdate, todos, updateTodos) => {
     todo.id === todoToUpdate.id ? todoToUpdate : todo
   );
   updateTodos(newTodos);
+  localStorage.setItem("todos", JSON.stringify(newTodos));
 };
 
 const removeTodo = (todoToRemove, todos, updateTodos) => {
   const newTodos = todos.filter((todo) => todo.id !== todoToRemove.id);
   updateTodos(newTodos);
+  localStorage.setItem("todos", JSON.stringify(newTodos));
 };
 
 const Todo = ({ todo, deleteBtn, updateTodo, todos }) => {
   if (!todo.text) return null;
+
   return (
     <TodoWrapper todo={todo}>
       <div>
@@ -47,7 +50,9 @@ const Todo = ({ todo, deleteBtn, updateTodo, todos }) => {
           checked={todo.completed}
           onChange={() => completeTodo(todo, todos, updateTodo)}
         />
-        {todo.text}
+        <span onClick={() => completeTodo(todo, todos, updateTodo)}>
+          {todo.text}
+        </span>
       </div>
       {deleteBtn && (
         <StyledDeleteBtn onClick={() => removeTodo(todo, todos, updateTodo)}>
