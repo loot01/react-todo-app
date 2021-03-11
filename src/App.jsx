@@ -61,12 +61,11 @@ const App = () => {
       id: uid(),
     },
   ]);
-
   useEffect(() => {
     const localTodos = JSON.parse(localStorage.getItem("todos"));
     if (localTodos.length === 0 && todos.length >= 1) {
       localStorage.setItem("todos", JSON.stringify(todos));
-    } else {
+    } else if (localTodos !== null) {
       setTodos(localTodos);
       console.log(localTodos);
     }
