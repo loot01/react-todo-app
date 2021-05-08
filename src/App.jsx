@@ -7,7 +7,7 @@ import AddTodo from "./components/AddTodo";
 import Todo from "./components/Todo";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import Footer from "./components/Footer";
-
+import ls from "local-storage";
 const AppHeader = styled.h1`
   font-family: "Raleway", sans-serif;
   letter-spacing: -0.045em;
@@ -62,9 +62,10 @@ const App = () => {
     },
   ]);
   useEffect(() => {
-    const localTodos = JSON.parse(localStorage.getItem("todos"));
-    if (localTodos.length === 0 && todos.length >= 1) {
-      localStorage.setItem("todos", JSON.stringify(todos));
+    const localTodos = ls.get("todos");
+    console.log(localTodos);
+    if (localTodos !== null && localTodos.length === 0 && todos.length >= 1) {
+      ls.set("todos", todos);
     } else if (localTodos !== null) {
       setTodos(localTodos);
       console.log(localTodos);
